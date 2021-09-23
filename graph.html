@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Instrumentation Technologies Libera Brilliance+"/>
+    <link rel="stylesheet" href="w3.css"/>
+    <link rel="stylesheet" href="dygraph/dygraph.css"/>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset = "UTF-8"/>
+    <title>I-Tech | Libera</title>
+    <link rel="icon" href="pictures/Favicon.png" type="image/png">
+  </head>
+  
+  <body>
+    <div id="vueapp" class="itech-margin-appbar">
+      <div class="header">
+        <div>
+          <a id="liberaLogo" href="/">
+            <img class="logo" src="pictures/Logo_Libera_White_Horizontal.png" alt="Instrumentation Technologies">
+          </a>
+        </div>
+        <div class="header-right">
+          <a id="itechLogo" href="https://www.i-tech.si">
+            <img class="logo" src="pictures/Logo_iTech_White_Horizontal.png" alt="Instrumentation Technologies">
+          </a>
+        </div>
+      </div>
+      
+      <div id="itech-main-content" class="w3-white" >
+        <graph class="itech-graph"></graph>
+      </div>
+      <footer class="w3-row w3-animate-top" id="itech-footer">
+        <a href="https://www.i-tech.si/" class="w3-button w3-xlarge w3-border itech-button footerButtons">© Instrumentation Technologies</a>
+      </footer>
+    </div>  
+
+    <script type="text/javascript" src="dygraph/dygraph.js"></script>
+
+    <script>
+      var graph_template = `
+      <div v-on:resize="onWindowResize">
+        <div class="w3-row">
+          <div class="w3-row m12">
+            <div class="w3-col s2 itech-graph-text">Select channel:</div>
+            <div class="w3-col s10">
+              <div class="itech-graph-checkboxes itech-graph-text" v-for="comp in components">
+                <input class="w3-rest" type="checkbox" :id="comp" :value="comp" v-model="checkedSignals">
+                <label :for="comp">{{comp}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div 
+          style="resize: vertical; padding: 0px; overflow :auto; border : 1px solid"
+          v-on:click="onClick"
+          v-bind:style="styleObject"
+          id="resizeFrame">
+          <div id="graph" v-bind:style="styleObjectGraph">
+          </div>
+        </div>
+        <div>
+          <input type="file" id="file" ref="myFiles" class="custom-file-input itech-graph-text" accept=".csv"
+             @change="previewFiles" />
+        </div>
+        <!--
+        <div>
+         <button class="w3-bar-item w3-button w3-xmedium itech-button w3-half" @click="exportImage">sreenshot</button>
+         <img v-bind:src="screenshot"/>
+        </div>
+        -->
+      </div>`;
+    </script>
+
+
+    <script src="js/vue/vue.2.6.10.min.js"></script>
+    <script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script>
+       /*
+ * Copyright (c) 2019 Instrumentation Technologies
+ * All Rights Reserved.
+ *
+ * $$Id: $$
+ */
+
+
+var ITECH = ITECH || {};
+
+
+ITECH.graph = {
+  props : {
+    "name" : String,
+  },
+  data : function() { //
+    return {
+      //
+      dygraph : null,
+      styleObject : {
+        // for style
+        width : "100%",
+        height : "auto",
+      },
+      styleObjectGraph : {
+        width : "100%", //"400px",
+      },
+      graph_resize : true,
+      components : [],
+      checkedSignals : [],
+      signalRxData : [],
+      expectRedrawOnRx : true,
+      files: [],
+      elem: null,
+      screenshot : "ss",
+    };
+  },
+  methods : {
+    initGraph : function() { //
+      this.dygraph = new Dygraph(this.$el.querySelector("#graph"), [ [ 0 ] ], {
+        legend : 'always',
+        showRoller : false,
+        file : [[0]],
+        axes : {y : {axisLabelWidth : 70}},
+      });
+      this.dygraph.updateOptions({"showRangeSelector" : true});
+      this.onClick();
+    },
+    onWindowResize : function() {
+      // when browser window become smaller than graph width
+      var w = this.$el.clientWidth;
+      this.resizeGraph(w, this.graphHeight);
+    },
+    onClick : function() {
+      // todo figure out how to make dragging better
+      var el = this.$el.querySelector("#resizeFrame");
+      this.resizeGraph(el.offsetWidth, el.offsetHeight);
+    },
+    resizeGraph : function(w, h) {
+      this.graphWidth = w;
+      this.graphHeight = h;
+      this.styleObject.width = w.toString() + "px";
+      this.styleObject.height = h.toString() + "px";
+      // todo improve this
+      this.styleObjectGraph.width = (w - 10).toString() + "px";
+      this.styleObjectGraph.height = (h - 10).toString() + "px";
+    },
+    previewFiles : function(ev) {
+      this.files = this.$refs.myFiles.files;
+      this.elem = ev.target; //.value = "";
+      var f = async function() {
+        var csv = ""
+        for (var i = 0; i < this.files.length; ++i) {
+          var f = this.files[i];
+          var txt = await f.text();
+          csv = csv.concat(txt, "\n");
+        }
+        var header = csv.substr(0, csv.indexOf( '\n')).split(";");
+        var title = this.elem.value;
+        title = title.split("\\");
+        title = title[title.length-1].split("/");
+        title = title[title.length - 1];
+        this.dygraph.updateOptions({"delimiter":";", "file":csv,"title":title});
+        var cmps = header.slice(1);
+        var checked = new Array(cmps.length);
+        checked.fill(true);
+        this.checkedSignals = cmps;
+        this.components = cmps;
+        this.elem.value = ""; 
+      }.bind(this);
+      f();
+    },
+    exportImage : function(ev){
+       var canvas = this.dygraph.canvas_;
+       var img    = canvas.toDataURL("image/png");
+       this.screenshot = img;
+    },
+  },
+  watch : {
+    styleObject : {
+      handler : function(val) { //
+        this.graph_resize = true;
+      },
+      deep : true
+    },
+    checkedSignals : function(checked) {
+      var i = this.components.map(x => checked.includes(x));
+      this.dygraph.updateOptions({"visibility" : i});
+    },
+    dygraphOptions : {
+      handler : function(opt) {
+        // this handle any change on dygraphOptions update
+        this.dygraph.updateOptions(opt);
+        this.graph_resize = true;
+      },
+      deep : true
+    },
+  },
+  updated : function() {
+    // make sure that dom props regarding size are set
+    if (this.graph_resize) {
+      this.dygraph.resize();
+    }
+    this.graph_resize = false;
+  },
+  mounted : function() {
+    this.initGraph();
+    window.addEventListener('resize',
+                            function() { this.onWindowResize(); }.bind(this));
+  },
+  template : graph_template
+};
+
+Vue.component('graph', ITECH.graph);
+
+ITECH.app = {
+  el : '#vueapp',
+};
+
+var vueApp = new Vue(ITECH.app); 
+    </script>
+  </body>
+</html>

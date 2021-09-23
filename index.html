@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Instrumentation Technologies Libera BLM"/>
+    <link rel="stylesheet" href="w3.css"/>
+    <link rel="stylesheet" href="dygraph/dygraph.css"/>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <meta charset = "UTF-8"/>
+    <title>I-Tech | Libera</title>
+    <link rel="icon" href="pictures/Favicon.png" type="image/png">
+  </head>
+  
+  <body>
+    <div id="vueapp" class="itech-margin-appbar">
+      <div class="header">
+        <div class="menu">
+          <div class="menuIconContainer" type="button" v-on:click="onClickOpenSideMenu();" >
+            <div class="menuBar1"></div>
+            <div class="menuBar2"></div>
+            <div class="menuBar3"></div>
+          </div>
+        </div>
+
+        <div class="w3-hide-small" id="application_name_container">
+          <a id="liberaLogo" class="w3-hide-small" href="/">
+            <img class="logo" src="pictures/Medaustron_logo.png" alt="Instrumentation Technologies">
+          </a>
+          <p class="liberaLogo">
+            webGUI
+          </p>
+        </div>
+        
+        <div class="w3-hide-medium w3-hide-large" id="application_name_container">
+          <p class="liberaLogo2">
+              LIBERA BLM
+            </p>
+          </div>
+
+          <a id="itechLogo" class="w3-hide-small" href="https://www.i-tech.si">
+            <img class="logo" src="pictures/Logo_iTech_White_Horizontal.png" alt="Instrumentation Technologies">
+          </a>
+        </div>
+
+        <div class="main">
+          
+          <!-- Sidebar -->
+          <div v-if="side_menu_visible" class="w3-sidebar w3-bar-block w3-animate-left" id="itech-sidebar" v-on:animationend="onSlideMenuAnimEnd">
+            <div class="ireg-node-container">
+              <div class="ireg-node-set-name">
+              PEAK AMPLITUDES
+              </div>
+              <tablev>            
+                <node name="Channel A" path="application.signal_processing.max_adc.A" :pooling-period=250></node>
+                <node name="Channel B" path="application.signal_processing.max_adc.B" :pooling-period=250></node>
+                <node name="Channel C" path="application.signal_processing.max_adc.C" :pooling-period=250></node>
+                <node name="Channel D" path="application.signal_processing.max_adc.D" :pooling-period=250></node>		                		                
+              </tablev>
+            </div>	
+                    
+          <accordion-container title="CHANNEL SETTINGS">
+        
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    ATTENUATION
+                        </div>
+                      <tablev>            
+                        <node-set name="Channel A" path="application.hk.attenuation.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.hk.attenuation.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.hk.attenuation.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.hk.attenuation.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    INPUT TERMINATION
+                        </div>
+                        <node-select name="Channel A" path="application.hk.termination.A" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
+                        <node-select name="Channel B" path="application.hk.termination.B" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
+                        <node-select name="Channel C" path="application.hk.termination.C" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
+                        <node-select name="Channel D" path="application.hk.termination.D" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>                                                            
+    <!--		              <tablev>            
+                        <node-set name="Channel A" path="application.hk.termination.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.hk.termination.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.hk.termination.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.hk.termination.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+    -->
+                    </div>		            
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    OTHER SETTINGS
+                        </div>		            
+
+                        <node-select name="Invert signal?" path="application.hk.adc_invert" show_select_apply="true" v-bind:add_options="{'No':0, 'Yes':1}"></node-select>
+                    <tablev> 
+                        <node name="Channel A delay" path="application.hk.channel_delay.A" :pooling-period=10000></node>
+                        <node name="Channel B delay" path="application.hk.channel_delay.B" :pooling-period=10000></node>
+                        <node name="Channel C delay" path="application.hk.channel_delay.C" :pooling-period=10000></node>
+                        <node name="Channel D delay" path="application.hk.channel_delay.D" :pooling-period=10000></node>
+                    <tablev> 
+                    </div>	
+            </accordion-container>
+
+          <accordion-container title="COUNTING SETTINGS">
+            <div class="w3-row">
+                <div class="ireg-node-container">
+                  <tablev>            
+                    <node name="Counting mode" path="application.signal_processing.counting_mode" :pooling-period=1000></node>
+                  </tablev>
+                  <node-select path="application.signal_processing.counting_mode" show_select_apply="true" v-bind:add_options="{'Differential':0, 'Normal':1}"></node-select>
+                </div>		    
+              </div> 
+
+              <accordion-container title="Differential counting">
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    THRESHOLDS
+                        </div>
+                        
+                      <tablev>            
+                        <node-set name="Channel A" path="application.signal_processing.threshold.counter_diff.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.signal_processing.threshold.counter_diff.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.signal_processing.threshold.counter_diff.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.signal_processing.threshold.counter_diff.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>
+
+              </accordion-container>		            
+
+              <accordion-container title="Normal counting">
+                    <div class="ireg-node-container">
+                    <div class="ireg-node-set-name">
+                    THRESHOLDS
+                      </div>
+                        
+                      <tablev> 
+                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel A</span></td></tr>           
+                        <node-set name="Detect threshold" path="application.signal_processing.threshold.loss_count.A" :pooling-period=1000></node-set>
+                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.A" :pooling-period=1000></node-set>
+                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel B</span></td></tr>
+                        <node-set name="Ch.B (detect)" path="application.signal_processing.threshold.loss_count.B" :pooling-period=1000></node-set>
+                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.B" :pooling-period=1000></node-set>		                
+                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel C</span></td></tr>
+                        <node-set name="Ch.C (detect)" path="application.signal_processing.threshold.loss_count.C" :pooling-period=1000></node-set>
+                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.C" :pooling-period=1000></node-set>		                
+                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel D</span></td></tr>
+                        <node-set name="Ch.D (detect)" path="application.signal_processing.threshold.loss_count.D" :pooling-period=1000></node-set>
+                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.D" :pooling-period=1000></node-set>		                		                		                
+                      </tablev>	              
+                    </div>	
+              
+              </accordion-container>
+
+              <accordion-container title="Counter dead time" panel_class="sidebar_accordion_panel_hide" button_class="libera_ireg_nodes_button">
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    COUNTER DEAD TIME
+                        </div>
+                      <tablev>            
+                        <node-set name="Channel A" path="application.signal_processing.threshold.counter_dead_time.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.signal_processing.threshold.counter_dead_time.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.signal_processing.threshold.counter_dead_time.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.signal_processing.threshold.counter_dead_time.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>		     	
+          
+              </accordion-container>
+
+              <accordion-container title="Multiple counting masks">
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    COUNTING MASKS OVER T0 PERIOD
+                        </div>
+                      <tablev>                     
+                          <node-set name="T0 period" path="application.signal_processing.decimation.t0_interval" :pooling-period=1000></node-set>           
+                        <node-set name="Mask 1 offset" path="application.signal_processing.adc_counter_mask1.offset" :pooling-period=1000></node-set>
+                        <node-set name="Mask 1 window" path="application.signal_processing.adc_counter_mask1.window" :pooling-period=1000></node-set>
+                        <node-set name="Mask 2 offset" path="application.signal_processing.adc_counter_mask2.offset" :pooling-period=1000></node-set>
+                        <node-set name="Mask 2 window" path="application.signal_processing.adc_counter_mask2.offset" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>		     	
+          
+              </accordion-container>
+          </accordion-container>
+
+          <accordion-container title="SHAPE ANALYSIS">
+        
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    <p>Settings apply to buffered data</p>
+                  </div>
+                      <tablev>            
+                        <node name="Acquisition trigger source" path="application.signal_processing.trig_source" :pooling-period=1000></node>
+                      </tablev>
+                      <node-select path="application.signal_processing.trig_source" show_select_apply="true" v-bind:add_options="{'T2':1, 'Threshold':2}"></node-select>
+                      <tablev>            
+                      <node name="Trigger edge" path="application.signal_processing.threshold.autotrig.edge_detection" :pooling-period=1000></node>
+                      </tablev>
+                      <node-select path="application.signal_processing.threshold.autotrig.edge_detection" show_select_apply="true" v-bind:add_options="{'Falling':0, 'Raising':1}"></node-select>
+                  <div class="ireg-node-set-name">  
+                    AUTO TRIGGER THRESHOLD
+                        </div>                    
+                      <tablev>            
+                        <node-set name="Channel A" path="application.signal_processing.threshold.autotrig.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.signal_processing.threshold.autotrig.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.signal_processing.threshold.autotrig.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.signal_processing.threshold.autotrig.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                  <div class="ireg-node-set-name">  
+                    ADC OFFSET
+                        </div>                    
+                      <tablev>            
+                        <node-set name="Channel A" path="application.signal_processing.adc_offset.A" :pooling-period=1000></node-set>
+                        <node-set name="Channel B" path="application.signal_processing.adc_offset.B" :pooling-period=1000></node-set>
+                        <node-set name="Channel C" path="application.signal_processing.adc_offset.C" :pooling-period=1000></node-set>
+                        <node-set name="Channel D" path="application.signal_processing.adc_offset.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>
+                    
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    DECIMATIONS
+                        </div>
+                      <tablev>
+                        <node-set name="ADC mask offset" path="application.signal_processing.adc_mask.offset" :pooling-period=1000></node-set>
+                        <node-set name="ADC mask window" path="application.signal_processing.adc_mask.window" :pooling-period=1000></node-set>		                
+                        <node-set name="SUM decimation" path="application.signal_processing.decimation.sum" :pooling-period=1000></node-set>		              
+                        <node name="SUM mode" path="application.signal_processing.decimation.sum_mode" :pooling-period=250></node>
+                      </tablev>
+                        <node-select path="application.signal_processing.decimation.sum_mode" show_select_apply="true" v-bind:add_options="{'0...Integrating':0, '1...Averaging':1}"></node-select>		              
+                      <tablev>
+                        <node name="AVG decimation" path="application.signal_processing.decimation.avg.val" :pooling-period=1000></node>
+                      </tablev>                 
+                        <node-select path="application.signal_processing.decimation.avg.n" show_select_apply="true" v-bind:add_options="{'2':1, '4':2, '8':3, '16':4, '32':5, '64':6, '128':7, '256':8, '512':9, '1024':10, '2048':11, '4096':12, '8192':13, '16384':14, '32768':15, '65536':16, '131072':17, '262144':18}"></node-select>
+                        <tablev>
+                        <node name="SA decimation" path="application.signal_processing.decimation.sa.val" :pooling-period=1000></node>		                                    
+                  </tablev>
+                        <node-select path="application.signal_processing.decimation.sa.n" show_select_apply="true" v-bind:add_options="{'2^16':16, '2^17':17, '2^18':18, '2^19':19, '2^20':20, '2^21':21, '2^22':22, '2^23':23, '2^24':24, '2^25':25, '2^26':26}"></node-select>
+                    </div>
+                      
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    ABS() function
+                        </div>
+                        <tablev>              
+                        <node-toggle name="Channel A" path="application.signal_processing.abs_enabled.A"></node-toggle>	
+                        <node-toggle name="Channel B" path="application.signal_processing.abs_enabled.B"></node-toggle>
+                        <node-toggle name="Channel C" path="application.signal_processing.abs_enabled.C"></node-toggle>	
+                        <node-toggle name="Channel D" path="application.signal_processing.abs_enabled.D"></node-toggle>
+                        </tablev>	
+                    </div>	
+            </accordion-container>
+
+          <accordion-container title="BEAM LOSS DETECTORS">
+        
+                    <div class="ireg-node-container">
+                      <div class="ireg-node-set-name">
+                    GAIN CONTROL VOLTAGES
+                        </div>
+                        <tablev> 
+                          <node name="Power supply" path="application.detector.power_supply" :pooling-period=10000></node>
+                    <node name="Gain control limit" path="application.detector.vgc.limit" :pooling-period=10000></node>
+                  </tablev>
+                      <tablev>            
+                        <node-set name="Detector A" path="application.detector.vgc.output.A" :pooling-period=1000></node-set>
+                        <node-set name="Detector B" path="application.detector.vgc.output.B" :pooling-period=1000></node-set>
+                        <node-set name="Detector C" path="application.detector.vgc.output.C" :pooling-period=1000></node-set>
+                        <node-set name="Detector D" path="application.detector.vgc.output.D" :pooling-period=1000></node-set>		                		                
+                      </tablev>
+                    </div>
+            </accordion-container>
+            
+            <accordion-container title="TIMING">
+              <div class="w3-row">
+
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    TRIGGER SETTINGS
+                  </div>
+                  
+                  <tablev>
+                    <node name="Trigger T2" path="application.triggers.t2.source" libera-device="this.liberaDev1" :pooling-period=250></node>
+                  </tablev>
+                  <node-select class="w3-border" id="masterT2Trigger" name="" path="application.triggers.t2.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
+                  <tablev>
+                    <node-set name="Trigger T2 delay" path="application.triggers.t2.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
+                    <node name="Trigger T2 count" path="application.events.t2.count" libera-device="this.liberaDev1" :pooling-period=250></node>
+                    <node name="ADC sampling frequency" path="application.clock_info.adc_frequency" libera-device="this.liberaDev1" :pooling-period=250></node>                                                
+                  </tablev>              
+                </div>
+              </div> 
+
+              <div class="sidebar_height_extender"></div>
+            </accordion-container>
+            
+            
+            <accordion-container title="GRAPH SETTINGS" id="graph_settings">
+              <div class="ireg-node-container">
+                <a href="/?num_graphs=1" class="w3-button w3-xlarge w3-border itech-button sidebarButtons">Show 1 graph</a>
+                <a href="/?num_graphs=2" class="w3-button w3-xlarge w3-border itech-button sidebarButtons">Show 2 graphs</a>
+                <a href="/?num_graphs=3" class="w3-button w3-xlarge w3-border itech-button sidebarButtons">Show 3 graphs</a>
+                <a href="/?num_graphs=4" class="w3-button w3-xlarge w3-border itech-button sidebarButtons">Show 4 graphs</a>
+                <button class="w3-button itech-button w3-border sidebarButtons" id="numberOfGraphsButton" onclick="setNumberOfGraphsPerRow()" >Set two graphs per row</button>
+              </div>
+            </accordion-container>
+            
+            
+            <accordion-container title="MORE OPTIONS" id="gui_settings">
+              <form method="get" action="Libera_BLM_User_Manual.pdf">
+                <button class="w3-button w3-xlarge w3-border itech-button sidebarButtons" type="submit" >Download user manual</button>
+              </form>
+              <a href="/graph.html" class="w3-button w3-xlarge w3-border itech-button sidebarButtons"> View saved signal</a>
+            </accordion-container>        
+          </div>
+          
+
+          <!-- MAIN CONTENT -->
+          <div id="itech-main-content" class="w3-white" v-bind:class="[{ 'sidebar-visible': side_menu_visible }]">
+            <div v-for="idx in num_graphs">
+              <graph-current class="itech-graph"></graph-current>
+            </div>
+          </div>
+        </div>
+
+        
+      <!-- FOOTER -->
+      <footer class="w3-row w3-animate-top" id="itech-footer">
+        <div class="w3-xlarge footerButtons footerFloatRight">
+          <node name="Application version  " path="version" :pooling-period=250> </node>
+        </div>
+      </footer>
+    </div>  
+    
+    <script type="text/javascript" src="dygraph/dygraph.js"></script>
+    <script type="text/x-template" id="node-super-template">
+      <!-- get template -->
+      <tr v-if="template == 'get'">
+        <td class="setGetName"><span style="font-size: 18px;">{{name}}</span></td> 
+        <td class="setGetValue"><span style="font-size: 18px;"><b><div style="display: inline">{{value}}</div></b></span></td> 
+      </tr>
+
+      <!-- setget template -->
+      <tr  v-else-if="template == 'setget'">
+        <td class="setGetName" ><span style="font-size: 18px;">{{name}}</span> </td>
+        <td class="setGetValue setGetValueRange">
+          <div class="w3-dropdown-click w3-block">
+            <button class="w3-button w3-block lpad0 buttonLimitWidth buttonTextAlignRight" v-on:click="buttonClick(); "><span style="font-size: 18px;"><b><div style="display: inline">{{value}}</div></b></span></button>
+            <div class="w3-dropdown-content w3-bar-block" v-bind:class="{ 'w3-show' : inputOpen }"> 
+              <form  v-on:submit.prevent> 
+                <input class="w3-input w3-border w3-full" style="width:100%" :type=typeHtml v-on:keyup.enter="submitForm" v-model="inputEntry" ref="input" value="0"></input>
+              </form> 
+              <div class="w3-text-red" v-if="inputError"> {{inputError}} </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <!-- select template -->
+      <tr  v-else-if="template == 'select'" class="w3-table sidebar-libera-content sidebar-libera-select-container">
+        <td valign="top" class="sidebar-libera-select sidebar-libera-content" ><span style="font-size: 18px;">{{name}}</span> </td>
+        <td>
+          <div class="w3-dropdown-click w3-block">
+            <select class="w3-select w3-block w3-button w3-border lpad0" id="selectTriggerSource" v-model="value" >
+              <option :value="option.value"  v-for="option in selectOptions">
+                {{option.name}}
+              </option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <button v-if="show_select_apply == 'true'" class="w3-bar-item w3-button w3-xmedium itech-button w3-half" id="download_data_button" v-on:click="applySelectedTrigger">Apply</button>
+        </td>
+     </tr>
+
+      <!-- toggle button template -->
+      <tr  v-else-if="template == 'toggle'"  class="">
+        <td class="toggleSwitchName"><span style="font-size: 18px;">{{name}}</span></td>
+        <td class="toggleSwitchValue">
+        <label class="switch" >
+          <input type="checkbox" v-on:click="onClick" v-model="value" >
+          <span class="slider"></span>
+        </label>
+        </td>
+     </tr>
+    </script>
+
+    <script>
+      var graph_template = `
+      <div v-on:resize="onWindowResize">
+        <div class="w3-row">
+
+          <div class="w3-hide-small select-channel">
+            <div class="select-channel-items">
+              <div class="itech-graph-text">Select channel</div>
+              <div class="itech-graph-checkboxes itech-graph-text" v-for="comp in components">
+                <input class="w3-rest" type="checkbox" :id="comp" :value="comp" v-model="checkedSignals">
+                <label :for="comp">{{comp}}</label>
+              </div>
+            </div>
+            
+            <div class="select-channel-items">
+              <div class="select-channel-items2 w3-margin-right">
+                <div class="itech-graph-text">Signal request size</div>
+                <div>
+                  <form v-on:submit.prevent>
+                    <input class="w3-input w3-border" v-model="signalReqSize" ref="input" type="number"></input>
+                  </form>
+                </div> 
+              </div>
+              <div class="select-channel-items2">
+                <div class="itech-graph-text">Graph size</div>
+                <div>
+                  <form v-on:submit.prevent>
+                    <input class="w3-input w3-border" v-model="graphSize" ref="input" type="number"></input>
+                  </form>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w3-hide-medium w3-hide-large select-channel-column">
+            <div class="select-channel-items">
+              <div class="itech-graph-text">Select channel</div>
+              <div class="itech-graph-checkboxes itech-graph-text" v-for="comp in components">
+                <input class="w3-rest" type="checkbox" :id="comp" :value="comp" v-model="checkedSignals">
+                <label :for="comp">{{comp}}</label>
+              </div>
+            </div>
+            
+            <div class="select-channel-items w3-margin-top ">
+              <div class="select-channel-items2 w3-margin-right">
+                <div class="itech-graph-text">Signal request size</div>
+                <div>
+                  <form v-on:submit.prevent>
+                    <input class="w3-input w3-border" v-model="signalReqSize" ref="input" type="number"></input>
+                  </form>
+                </div> 
+              </div>
+              <div class="select-channel-items2">
+                <div class="itech-graph-text">Graph size</div>
+                <div>
+                  <form  v-on:submit.prevent>
+                    <input class="w3-input w3-border" v-model="graphSize" ref="input" type="number"></input>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div 
+          style="resize: vertical; padding: 0px; overflow :auto;"
+          v-on:click="onClick"
+          v-bind:style="styleObject"
+          id="resizeFrame">
+          <div id="graph" v-bind:style="styleObjectGraph">
+          </div>
+        </div>
+        <div class="w3-hide-small graph-options">
+          <div class="graph-options">
+            <div class="graph-options-items w3-margin-right">
+              <label class="itech-graph-text" >Pause chart</label>
+              <label class="switch itechSwitch itech-graph-text" > 
+                <input type="checkbox" id="demoId" @click="clickPause" v-model="pausechart" >
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="graph-options-items">
+              <label class="itech-graph-text" >Range selector</label>
+              <label class="switch itechSwitch itech-graph-text" > 
+                <input type="checkbox" id="demoId" v-model="dygraphOptions.showRangeSelector" >
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="graph-options">
+            <div class="graph-options-items w3-margin-right">
+              <label class="itech-graph-text" >Download on graph size acquired</label>
+              <label class="switch itechSwitch itech-graph-text" >
+                <input type="checkbox" id="demoId" @click="onClickAutoDownload" v-model="autoDownload" >
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="w3-margin-right">
+              <button class="w3-bar-item w3-button w3-xmedium itech-button w3-mobile" id="download_data_button" v-on:click="downloadData">Download data now</button>
+            </div>
+        </div>
+      </div>
+      
+        <div class="w3-hide-medium w3-hide-large graph-options-column">
+          <div class="graph-options">
+            <div class="graph-options-items w3-margin-right">
+              <label class="itech-graph-text" >Pause chart</label>
+              <label class="switch itechSwitch itech-graph-text" > 
+                <input type="checkbox" id="demoId" @click="clickPause" v-model="pausechart" >
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="graph-options-items">
+              <label class="itech-graph-text" >Range selector</label>
+              <label class="switch itechSwitch itech-graph-text" > 
+                <input type="checkbox" id="demoId" v-model="dygraphOptions.showRangeSelector" >
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="graph-options w3-margin-top ">
+            <div class="graph-options-items w3-margin-right">
+              <label class="itech-graph-text" >Download on graph size acquired</label>
+              <label class="switch itechSwitch itech-graph-text" >
+                <input type="checkbox" id="demoId" @click="onClickAutoDownload" v-model="autoDownload" >
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="w3-margin-right">
+              <button class="w3-bar-item w3-button w3-xmedium itech-button w3-mobile" id="download_data_button" v-on:click="downloadData">Download data now</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+
+
+      var current_graph_template = `
+      <div>
+        <select class="w3-button w3-quarter w3-block w3-border lpad0 buttonLimitWidth buttonTextAlignRight itech-graph-text" v-model="selectedSig">
+          <option v-for="o in selectSigOptions" v-bind:value="o">{{o.name}}</option>
+        </select>
+        ${graph_template}
+      </div>`;
+    </script>
+
+    <script type="text/x-template" id="quarter-template">
+      <div class="sidebar-libera-content"> 
+        <p v-if="title">						
+          <b>{{title}}</b>	
+        </p> 
+        <table class="w3-table " style="padding:2px; margin-bottom: 15px;"> 
+          <tbody> 
+            <slot> 
+            </slot> 
+          </tbody> 
+        </table> 
+      </div>
+    </script>
+
+
+    <script type="text/x-template" id="table-template">
+      <table class="w3-table " style="padding:2px; margin-bottom: 15px;"> 
+        <col width="50%"/>
+        <col width="50%"/>
+        <tbody> 
+          <slot> 
+          </slot> 
+        </tbody> 
+      </table> 
+    </script>
+
+    <script type="text/x-template" id="accordion-container">
+      <div>
+        <button class="accordion w3-button w3-block w3-left-align ireg-node-set-name itech-button settingsAccButton" :class="template_button_class" @click="enableSidebarAccordionEventListeners" >{{title}}</button>
+        <div class="panel" :class="template_panel_class">
+          <slot> 
+          </slot> 
+        </div>
+      </div>
+    </script>
+
+
+    <script src="js/vue/vue.2.6.10.min.js"></script>
+    <script src="entry.js"> </script>
+  </body>
+</html>
