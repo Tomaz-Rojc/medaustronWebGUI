@@ -4,13 +4,13 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Instrumentation Technologies Libera BLM"/>
-    <link rel="stylesheet" href="w3.css"/>
-    <link rel="stylesheet" href="dygraph/dygraph.css"/>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="static/w3.css"/>
+    <link rel="stylesheet" href="static/dygraph/dygraph.css"/>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="static/font-awesome.min.css">
     <meta charset = "UTF-8"/>
-    <title>I-Tech | Libera</title>
-    <link rel="icon" href="pictures/Favicon.png" type="image/png">
+    <title>Medaustron webGUI</title>
+    <link rel="icon" href="static/pictures/Favicon.png" type="image/png">
   </head>
   
   <body>
@@ -26,7 +26,7 @@
 
         <div class="w3-hide-small" id="application_name_container">
           <a id="liberaLogo" class="w3-hide-small" href="/">
-            <img class="logo" src="pictures/Medaustron_logo.png" alt="Instrumentation Technologies">
+            <img class="logo" src="static/pictures/Medaustron_logo.png" alt="Instrumentation Technologies">
           </a>
           <p class="liberaLogo">
             webGUI
@@ -40,7 +40,7 @@
           </div>
 
           <a id="itechLogo" class="w3-hide-small" href="https://www.i-tech.si">
-            <img class="logo" src="pictures/Logo_iTech_White_Horizontal.png" alt="Instrumentation Technologies">
+            <img class="logo" src="static/pictures/Logo_iTech_White_Horizontal.png" alt="Instrumentation Technologies">
           </a>
         </div>
 
@@ -80,7 +80,7 @@
                         <node-select name="Channel A" path="application.hk.termination.A" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
                         <node-select name="Channel B" path="application.hk.termination.B" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
                         <node-select name="Channel C" path="application.hk.termination.C" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
-                        <node-select name="Channel D" path="application.hk.termination.D" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>                                                            
+                        <node-select name="Channel D" path="application.hk.termination.D" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>                                                           
     <!--		              <tablev>            
                         <node-set name="Channel A" path="application.hk.termination.A" :pooling-period=1000></node-set>
                         <node-set name="Channel B" path="application.hk.termination.B" :pooling-period=1000></node-set>
@@ -190,7 +190,7 @@
         
                     <div class="ireg-node-container">
                       <div class="ireg-node-set-name">
-                    <p>Settings apply to buffered data</p>
+                    Settings apply to buffered data
                   </div>
                       <tablev>            
                         <node name="Acquisition trigger source" path="application.signal_processing.trig_source" :pooling-period=1000></node>
@@ -200,6 +200,8 @@
                       <node name="Trigger edge" path="application.signal_processing.threshold.autotrig.edge_detection" :pooling-period=1000></node>
                       </tablev>
                       <node-select path="application.signal_processing.threshold.autotrig.edge_detection" show_select_apply="true" v-bind:add_options="{'Falling':0, 'Raising':1}"></node-select>
+                  </div>
+                  <div class="ireg-node-container">
                   <div class="ireg-node-set-name">  
                     AUTO TRIGGER THRESHOLD
                         </div>                    
@@ -209,6 +211,8 @@
                         <node-set name="Channel C" path="application.signal_processing.threshold.autotrig.C" :pooling-period=1000></node-set>
                         <node-set name="Channel D" path="application.signal_processing.threshold.autotrig.D" :pooling-period=1000></node-set>		                		                
                       </tablev>
+                  </div>
+                  <div class="ireg-node-container">
                   <div class="ireg-node-set-name">  
                     ADC OFFSET
                         </div>                    
@@ -246,10 +250,14 @@
                     ABS() function
                         </div>
                         <tablev>              
-                        <node-toggle name="Channel A" path="application.signal_processing.abs_enabled.A"></node-toggle>	
+                        <node-toggle name="Channel A" path="application.signal_processing.abs_enabled.A"></node-toggle>
+                        <node name="toggle:" path="application.signal_processing.abs_enabled.A" :pooling-period=250></node>	
                         <node-toggle name="Channel B" path="application.signal_processing.abs_enabled.B"></node-toggle>
+                        <node name="toggle:" path="application.signal_processing.abs_enabled.B" :pooling-period=250></node>	
                         <node-toggle name="Channel C" path="application.signal_processing.abs_enabled.C"></node-toggle>	
+                        <node name="toggle:" path="application.signal_processing.abs_enabled.C" :pooling-period=250></node>	
                         <node-toggle name="Channel D" path="application.signal_processing.abs_enabled.D"></node-toggle>
+                        <node name="toggle:" path="application.signal_processing.abs_enabled.D" :pooling-period=250></node>	
                         </tablev>	
                     </div>	
             </accordion-container>
@@ -273,27 +281,47 @@
                     </div>
             </accordion-container>
             
-            <accordion-container title="TIMING">
-              <div class="w3-row">
-
-                <div class="ireg-node-container">
-                  <div class="ireg-node-set-name">
-                    TRIGGER SETTINGS
-                  </div>
-                  
-                  <tablev>
-                    <node name="Trigger T2" path="application.triggers.t2.source" libera-device="this.liberaDev1" :pooling-period=250></node>
-                  </tablev>
-                  <node-select class="w3-border" id="masterT2Trigger" name="" path="application.triggers.t2.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
-                  <tablev>
-                    <node-set name="Trigger T2 delay" path="application.triggers.t2.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
-                    <node name="Trigger T2 count" path="application.events.t2.count" libera-device="this.liberaDev1" :pooling-period=250></node>
-                    <node name="ADC sampling frequency" path="application.clock_info.adc_frequency" libera-device="this.liberaDev1" :pooling-period=250></node>                                                
-                  </tablev>              
-                </div>
-              </div> 
-
-              <div class="sidebar_height_extender"></div>
+            <accordion-container title="TRIGGERS">
+              <div class="ireg-node-container">
+                <tablev>
+                  <node name="Trigger T0" path="application.triggers.t0.source" libera-device="this.liberaDev1" :pooling-period=250></node>
+                </tablev>
+                <node-select id="masterT0Trigger" path="application.triggers.t0.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
+                <tablev>  
+                  <node-set name="Delay" path="application.triggers.t0.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
+<!--                  <node name="Count" path="application.events.t0.count" libera-device="this.liberaDev1" :pooling-period=250></node>			    -->
+                </tablev>
+              </div>
+              <div class="ireg-node-container">
+                <tablev>
+                  <node name="Trigger T1" path="application.triggers.t1.source" libera-device="this.liberaDev1" :pooling-period=250></node>
+                </tablev>
+                <node-select id="masterT1Trigger" path="application.triggers.t1.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
+                <tablev>  
+                  <node-set name="Delay" path="application.triggers.t1.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
+<!--                  <node name="Count" path="application.events.t1.count" libera-device="this.liberaDev1" :pooling-period=250></node>               -->
+                </tablev>
+              </div>
+              <div class="ireg-node-container">
+                <tablev>
+                  <node name="Trigger T2" path="application.triggers.t2.source" libera-device="this.liberaDev1" :pooling-period=250></node>
+                </tablev>
+                <node-select id="masterT2Trigger" path="application.triggers.t2.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
+                <tablev>  
+                  <node-set name="Delay" path="application.triggers.t2.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
+                  <node name="Count" path="application.events.t2.count" libera-device="this.liberaDev1" :pooling-period=250></node>
+                </tablev>
+              </div>
+              <div class="ireg-node-container">
+                <tablev>
+                  <node name="Trigger T3" path="application.triggers.t3.source" libera-device="this.liberaDev1" :pooling-period=250></node>
+                </tablev>
+                <node-select id="masterT3Trigger" path="application.triggers.t3.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
+                <tablev>  
+                  <node-set name="Delay" path="application.triggers.t3.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
+<!--                  <node name="Count" path="application.events.t3.count" libera-device="this.liberaDev1" :pooling-period=250></node>                     -->
+                </tablev>
+              </div>
             </accordion-container>
             
             
@@ -309,10 +337,10 @@
             
             
             <accordion-container title="MORE OPTIONS" id="gui_settings">
-              <form method="get" action="Libera_BLM_User_Manual.pdf">
+              <form method="get" action="static/Libera_BLM_User_Manual.pdf">
                 <button class="w3-button w3-xlarge w3-border itech-button sidebarButtons" type="submit" >Download user manual</button>
               </form>
-              <a href="/graph.html" class="w3-button w3-xlarge w3-border itech-button sidebarButtons"> View saved signal</a>
+              <a href="/static/graph.html" class="w3-button w3-xlarge w3-border itech-button sidebarButtons"> View saved signal</a>
             </accordion-container>        
           </div>
           
@@ -327,14 +355,14 @@
 
         
       <!-- FOOTER -->
-      <footer class="w3-row w3-animate-top" id="itech-footer">
+      <footer class="w3-row w3-animate-top" id="itech-footer" style="border-top: 1px solid lightgray">
         <div class="w3-xlarge footerButtons footerFloatRight">
-          <node name="Application version  " path="version" :pooling-period=250> </node>
+          <node name="Application version" path="version" :pooling-period=250> </node>
         </div>
       </footer>
     </div>  
     
-    <script type="text/javascript" src="dygraph/dygraph.js"></script>
+    <script type="text/javascript" src="static/dygraph/dygraph.js"></script>
     <script type="text/x-template" id="node-super-template">
       <!-- get template -->
       <tr v-if="template == 'get'">
@@ -528,7 +556,7 @@
 
       var current_graph_template = `
       <div>
-        <select class="w3-button w3-quarter w3-block w3-border lpad0 buttonLimitWidth buttonTextAlignRight itech-graph-text" v-model="selectedSig">
+        <select class="w3-button w3-quarter w3-block w3-border lpad0 buttonLimitWidth w3-left-align itech-graph-text" v-model="selectedSig">
           <option v-for="o in selectSigOptions" v-bind:value="o">{{o.name}}</option>
         </select>
         ${graph_template}
@@ -572,7 +600,7 @@
     </script>
 
 
-    <script src="js/vue/vue.2.6.10.min.js"></script>
-    <script src="entry.js"> </script>
+    <script src="static/js/vue/vue.2.6.10.min.js"></script>
+    <script src="static/entry.js"> </script>
   </body>
 </html>

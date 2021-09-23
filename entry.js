@@ -655,30 +655,10 @@ Vue.component('graph-current', {
           name : "ADC synthetic",
           mode : "Event"
         },  
-        {
-          path : "application.signals.sum",
-          name : "SUM (int/avg ADC synthetic)",
-          mode : "Event"
-        },               
-        {
-          path : "application.signals.average",
-          name : "AVG (averaged SUM)",
-          mode : "Event"
-        }, 
-        {
-        	path : "application.signals.sa",
-	      name : "Slow data (averaged SUM)",
-	      mode : "Stream"
-        },
-        {
-        	path : "application.signals.counter",
-	      name : "Counting",
-	      mode : "Stream"
-        },
       ],
       selectedSig : {
-        path : "application.signals.adc_synth",
-        name : "ADC synthetic",
+        path : "application.signals.adc",
+        name : "ADC raw",
         mode : "Event"
       }
     };
