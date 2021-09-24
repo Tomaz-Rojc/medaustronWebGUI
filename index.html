@@ -48,239 +48,9 @@
           
           <!-- Sidebar -->
           <div v-if="side_menu_visible" class="w3-sidebar w3-bar-block w3-animate-left" id="itech-sidebar" v-on:animationend="onSlideMenuAnimEnd">
-            <div class="ireg-node-container">
-              <div class="ireg-node-set-name">
-              PEAK AMPLITUDES
-              </div>
-              <tablev>            
-                <node name="Channel A" path="application.signal_processing.max_adc.A" :pooling-period=250></node>
-                <node name="Channel B" path="application.signal_processing.max_adc.B" :pooling-period=250></node>
-                <node name="Channel C" path="application.signal_processing.max_adc.C" :pooling-period=250></node>
-                <node name="Channel D" path="application.signal_processing.max_adc.D" :pooling-period=250></node>		                		                
-              </tablev>
-            </div>	
-                    
-          <accordion-container title="CHANNEL SETTINGS">
-        
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    ATTENUATION
-                        </div>
-                      <tablev>            
-                        <node-set name="Channel A" path="application.hk.attenuation.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.hk.attenuation.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.hk.attenuation.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.hk.attenuation.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    INPUT TERMINATION
-                        </div>
-                        <node-select name="Channel A" path="application.hk.termination.A" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
-                        <node-select name="Channel B" path="application.hk.termination.B" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
-                        <node-select name="Channel C" path="application.hk.termination.C" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>
-                        <node-select name="Channel D" path="application.hk.termination.D" show_select_apply="true" v-bind:add_options="{'1 MOhm':0, '50 Ohm':1}"></node-select>                                                           
-    <!--		              <tablev>            
-                        <node-set name="Channel A" path="application.hk.termination.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.hk.termination.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.hk.termination.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.hk.termination.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-    -->
-                    </div>		            
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    OTHER SETTINGS
-                        </div>		            
-
-                        <node-select name="Invert signal?" path="application.hk.adc_invert" show_select_apply="true" v-bind:add_options="{'No':0, 'Yes':1}"></node-select>
-                    <tablev> 
-                        <node name="Channel A delay" path="application.hk.channel_delay.A" :pooling-period=10000></node>
-                        <node name="Channel B delay" path="application.hk.channel_delay.B" :pooling-period=10000></node>
-                        <node name="Channel C delay" path="application.hk.channel_delay.C" :pooling-period=10000></node>
-                        <node name="Channel D delay" path="application.hk.channel_delay.D" :pooling-period=10000></node>
-                    <tablev> 
-                    </div>	
-            </accordion-container>
-
-          <accordion-container title="COUNTING SETTINGS">
-            <div class="w3-row">
-                <div class="ireg-node-container">
-                  <tablev>            
-                    <node name="Counting mode" path="application.signal_processing.counting_mode" :pooling-period=1000></node>
-                  </tablev>
-                  <node-select path="application.signal_processing.counting_mode" show_select_apply="true" v-bind:add_options="{'Differential':0, 'Normal':1}"></node-select>
-                </div>		    
-              </div> 
-
-              <accordion-container title="Differential counting">
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    THRESHOLDS
-                        </div>
-                        
-                      <tablev>            
-                        <node-set name="Channel A" path="application.signal_processing.threshold.counter_diff.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.signal_processing.threshold.counter_diff.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.signal_processing.threshold.counter_diff.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.signal_processing.threshold.counter_diff.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>
-
-              </accordion-container>		            
-
-              <accordion-container title="Normal counting">
-                    <div class="ireg-node-container">
-                    <div class="ireg-node-set-name">
-                    THRESHOLDS
-                      </div>
-                        
-                      <tablev> 
-                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel A</span></td></tr>           
-                        <node-set name="Detect threshold" path="application.signal_processing.threshold.loss_count.A" :pooling-period=1000></node-set>
-                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.A" :pooling-period=1000></node-set>
-                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel B</span></td></tr>
-                        <node-set name="Ch.B (detect)" path="application.signal_processing.threshold.loss_count.B" :pooling-period=1000></node-set>
-                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.B" :pooling-period=1000></node-set>		                
-                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel C</span></td></tr>
-                        <node-set name="Ch.C (detect)" path="application.signal_processing.threshold.loss_count.C" :pooling-period=1000></node-set>
-                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.C" :pooling-period=1000></node-set>		                
-                        <tr><td><span style="font-size: 18px; font-weight: bold;">Channel D</span></td></tr>
-                        <node-set name="Ch.D (detect)" path="application.signal_processing.threshold.loss_count.D" :pooling-period=1000></node-set>
-                        <node-set name="Reset threshold" path="application.signal_processing.threshold.loss_count_high.D" :pooling-period=1000></node-set>		                		                		                
-                      </tablev>	              
-                    </div>	
-              
-              </accordion-container>
-
-              <accordion-container title="Counter dead time" panel_class="sidebar_accordion_panel_hide" button_class="libera_ireg_nodes_button">
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    COUNTER DEAD TIME
-                        </div>
-                      <tablev>            
-                        <node-set name="Channel A" path="application.signal_processing.threshold.counter_dead_time.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.signal_processing.threshold.counter_dead_time.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.signal_processing.threshold.counter_dead_time.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.signal_processing.threshold.counter_dead_time.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>		     	
-          
-              </accordion-container>
-
-              <accordion-container title="Multiple counting masks">
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    COUNTING MASKS OVER T0 PERIOD
-                        </div>
-                      <tablev>                     
-                          <node-set name="T0 period" path="application.signal_processing.decimation.t0_interval" :pooling-period=1000></node-set>           
-                        <node-set name="Mask 1 offset" path="application.signal_processing.adc_counter_mask1.offset" :pooling-period=1000></node-set>
-                        <node-set name="Mask 1 window" path="application.signal_processing.adc_counter_mask1.window" :pooling-period=1000></node-set>
-                        <node-set name="Mask 2 offset" path="application.signal_processing.adc_counter_mask2.offset" :pooling-period=1000></node-set>
-                        <node-set name="Mask 2 window" path="application.signal_processing.adc_counter_mask2.offset" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>		     	
-          
-              </accordion-container>
-          </accordion-container>
-
-          <accordion-container title="SHAPE ANALYSIS">
-        
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    Settings apply to buffered data
-                  </div>
-                      <tablev>            
-                        <node name="Acquisition trigger source" path="application.signal_processing.trig_source" :pooling-period=1000></node>
-                      </tablev>
-                      <node-select path="application.signal_processing.trig_source" show_select_apply="true" v-bind:add_options="{'T2':1, 'Threshold':2}"></node-select>
-                      <tablev>            
-                      <node name="Trigger edge" path="application.signal_processing.threshold.autotrig.edge_detection" :pooling-period=1000></node>
-                      </tablev>
-                      <node-select path="application.signal_processing.threshold.autotrig.edge_detection" show_select_apply="true" v-bind:add_options="{'Falling':0, 'Raising':1}"></node-select>
-                  </div>
-                  <div class="ireg-node-container">
-                  <div class="ireg-node-set-name">  
-                    AUTO TRIGGER THRESHOLD
-                        </div>                    
-                      <tablev>            
-                        <node-set name="Channel A" path="application.signal_processing.threshold.autotrig.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.signal_processing.threshold.autotrig.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.signal_processing.threshold.autotrig.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.signal_processing.threshold.autotrig.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                  </div>
-                  <div class="ireg-node-container">
-                  <div class="ireg-node-set-name">  
-                    ADC OFFSET
-                        </div>                    
-                      <tablev>            
-                        <node-set name="Channel A" path="application.signal_processing.adc_offset.A" :pooling-period=1000></node-set>
-                        <node-set name="Channel B" path="application.signal_processing.adc_offset.B" :pooling-period=1000></node-set>
-                        <node-set name="Channel C" path="application.signal_processing.adc_offset.C" :pooling-period=1000></node-set>
-                        <node-set name="Channel D" path="application.signal_processing.adc_offset.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>
-                    
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    DECIMATIONS
-                        </div>
-                      <tablev>
-                        <node-set name="ADC mask offset" path="application.signal_processing.adc_mask.offset" :pooling-period=1000></node-set>
-                        <node-set name="ADC mask window" path="application.signal_processing.adc_mask.window" :pooling-period=1000></node-set>		                
-                        <node-set name="SUM decimation" path="application.signal_processing.decimation.sum" :pooling-period=1000></node-set>		              
-                        <node name="SUM mode" path="application.signal_processing.decimation.sum_mode" :pooling-period=250></node>
-                      </tablev>
-                        <node-select path="application.signal_processing.decimation.sum_mode" show_select_apply="true" v-bind:add_options="{'0...Integrating':0, '1...Averaging':1}"></node-select>		              
-                      <tablev>
-                        <node name="AVG decimation" path="application.signal_processing.decimation.avg.val" :pooling-period=1000></node>
-                      </tablev>                 
-                        <node-select path="application.signal_processing.decimation.avg.n" show_select_apply="true" v-bind:add_options="{'2':1, '4':2, '8':3, '16':4, '32':5, '64':6, '128':7, '256':8, '512':9, '1024':10, '2048':11, '4096':12, '8192':13, '16384':14, '32768':15, '65536':16, '131072':17, '262144':18}"></node-select>
-                        <tablev>
-                        <node name="SA decimation" path="application.signal_processing.decimation.sa.val" :pooling-period=1000></node>		                                    
-                  </tablev>
-                        <node-select path="application.signal_processing.decimation.sa.n" show_select_apply="true" v-bind:add_options="{'2^16':16, '2^17':17, '2^18':18, '2^19':19, '2^20':20, '2^21':21, '2^22':22, '2^23':23, '2^24':24, '2^25':25, '2^26':26}"></node-select>
-                    </div>
-                      
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    ABS() function
-                        </div>
-                        <tablev>              
-                        <node-toggle name="Channel A" path="application.signal_processing.abs_enabled.A"></node-toggle>
-                        <node name="toggle:" path="application.signal_processing.abs_enabled.A" :pooling-period=250></node>	
-                        <node-toggle name="Channel B" path="application.signal_processing.abs_enabled.B"></node-toggle>
-                        <node name="toggle:" path="application.signal_processing.abs_enabled.B" :pooling-period=250></node>	
-                        <node-toggle name="Channel C" path="application.signal_processing.abs_enabled.C"></node-toggle>	
-                        <node name="toggle:" path="application.signal_processing.abs_enabled.C" :pooling-period=250></node>	
-                        <node-toggle name="Channel D" path="application.signal_processing.abs_enabled.D"></node-toggle>
-                        <node name="toggle:" path="application.signal_processing.abs_enabled.D" :pooling-period=250></node>	
-                        </tablev>	
-                    </div>	
-            </accordion-container>
-
-          <accordion-container title="BEAM LOSS DETECTORS">
-        
-                    <div class="ireg-node-container">
-                      <div class="ireg-node-set-name">
-                    GAIN CONTROL VOLTAGES
-                        </div>
-                        <tablev> 
-                          <node name="Power supply" path="application.detector.power_supply" :pooling-period=10000></node>
-                    <node name="Gain control limit" path="application.detector.vgc.limit" :pooling-period=10000></node>
-                  </tablev>
-                      <tablev>            
-                        <node-set name="Detector A" path="application.detector.vgc.output.A" :pooling-period=1000></node-set>
-                        <node-set name="Detector B" path="application.detector.vgc.output.B" :pooling-period=1000></node-set>
-                        <node-set name="Detector C" path="application.detector.vgc.output.C" :pooling-period=1000></node-set>
-                        <node-set name="Detector D" path="application.detector.vgc.output.D" :pooling-period=1000></node-set>		                		                
-                      </tablev>
-                    </div>
-            </accordion-container>
             
+          
+          
             <accordion-container title="TRIGGERS">
               <div class="ireg-node-container">
                 <tablev>
@@ -289,7 +59,7 @@
                 <node-select id="masterT0Trigger" path="application.triggers.t0.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
                 <tablev>  
                   <node-set name="Delay" path="application.triggers.t0.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
-<!--                  <node name="Count" path="application.events.t0.count" libera-device="this.liberaDev1" :pooling-period=250></node>			    -->
+                  <node name="Count" path="application.events.t0.count" libera-device="this.liberaDev1" :pooling-period=250></node>			    
                 </tablev>
               </div>
               <div class="ireg-node-container">
@@ -299,7 +69,7 @@
                 <node-select id="masterT1Trigger" path="application.triggers.t1.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
                 <tablev>  
                   <node-set name="Delay" path="application.triggers.t1.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
-<!--                  <node name="Count" path="application.events.t1.count" libera-device="this.liberaDev1" :pooling-period=250></node>               -->
+                  <node name="Count" path="application.events.t1.count" libera-device="this.liberaDev1" :pooling-period=250></node>               
                 </tablev>
               </div>
               <div class="ireg-node-container">
@@ -319,10 +89,595 @@
                 <node-select id="masterT3Trigger" path="application.triggers.t3.source" show_select_apply="true" v-bind:expose_as="{Off:'off',Pulse:'Pulse',External:'External',Internal:'Internal'}"></node-select>
                 <tablev>  
                   <node-set name="Delay" path="application.triggers.t3.delay" libera-device="this.liberaDev1" :pooling-period=250></node-set>
-<!--                  <node name="Count" path="application.events.t3.count" libera-device="this.liberaDev1" :pooling-period=250></node>                     -->
+                  <node name="Count" path="application.events.t3.count" libera-device="this.liberaDev1" :pooling-period=250></node>                     
                 </tablev>
               </div>
             </accordion-container>
+            
+            
+            
+            <accordion-container title="DSP0">
+              <accordion-container title="Loop 0">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_0.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_0.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_0.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_0.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_0.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_0.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_0.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_0.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_0.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_0.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_0.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_0.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_0.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_0.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_0.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_0.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_0.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_0.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_0.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 1">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_1.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_1.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_1.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_1.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_1.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_1.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_1.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_1.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_1.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_1.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_1.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_1.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_1.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_1.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_1.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_1.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_1.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_1.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_1.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 2">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_2.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_2.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_2.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_2.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_2.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_2.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_2.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_2.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_2.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_2.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_2.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_2.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_2.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_2.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_2.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_2.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_2.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_2.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_2.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 3">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_3.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_3.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_3.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_3.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_3.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_3.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_3.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_3.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_3.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_3.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_3.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_3.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_3.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_3.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_3.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_3.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_3.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_3.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_3.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 4">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_4.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_4.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_4.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_4.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_4.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_4.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_4.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_4.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_4.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_4.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_4.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_4.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_4.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_4.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_4.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_4.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_4.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_4.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_4.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 5">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp0.loop_5.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp0.loop_5.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp0.loop_5.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_5.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_5.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_5.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_5.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_5.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_5.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_5.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_5.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp0.loop_5.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp0.loop_5.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp0.loop_5.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp0.loop_5.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp0.loop_5.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp0.loop_5.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp0.loop_5.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp0.loop_5.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+            </accordion-container>
+            
+            
+            
+            <accordion-container title="DSP1">
+              <accordion-container title="Loop 0">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_0.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_0.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_0.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_0.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_0.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_0.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_0.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_0.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_0.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_0.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_0.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_0.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_0.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_0.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_0.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_0.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_0.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_0.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_0.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 1">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_1.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_1.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_1.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_1.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_1.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_1.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_1.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_1.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_1.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_1.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_1.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_1.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_1.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_1.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_1.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_1.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_1.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_1.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_1.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 2">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_2.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_2.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_2.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_2.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_2.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_2.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_2.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_2.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_2.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_2.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_2.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_2.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_2.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_2.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_2.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_2.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_2.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_2.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_2.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 3">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_3.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_3.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_3.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_3.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_3.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_3.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_3.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_3.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_3.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_3.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_3.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_3.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_3.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_3.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_3.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_3.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_3.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_3.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_3.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 4">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_4.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_4.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_4.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_4.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_4.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_4.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_4.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_4.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_4.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_4.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_4.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_4.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_4.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_4.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_4.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_4.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_4.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_4.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_4.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container>
+              
+              <accordion-container title="Loop 5">
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    Matrix rotator
+                  </div>
+              	  <tablev>
+              	    <node-set name="Phi" path="application.dsp1.loop_5.pi.matrix_rotator.phi" :polling-period=500></node-set>
+              	  </tablev>
+              	  <div class="ireg-node-set-name" style="text-align: left; font-weight: normal">
+                    Components
+                  </div>
+              	  <tablev>
+              	    <node-set name="Sin" path="application.dsp1.loop_5.pi.matrix_rotator.component.sin" :polling-period=500></node-set>
+              	    <node-set name="Cos" path="application.dsp1.loop_5.pi.matrix_rotator.component.cos" :polling-period=500></node-set>
+              	  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    i
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_5.pi.i.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_5.pi.i.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_5.pi.i.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_5.pi.i.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_5.pi.i.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_5.pi.i.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_5.pi.i.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_5.pi.i.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+                <div class="ireg-node-container">
+                  <div class="ireg-node-set-name">
+                    q
+                  </div>
+                  <tablev>
+                    <node-toggle name="Enable" path="application.dsp1.loop_5.pi.q.enable"></node-toggle>  
+                    <node-set name="sp" path="application.dsp1.loop_5.pi.q.sp" :polling-period=500></node-set>
+                    <node-set name="ff" path="application.dsp1.loop_5.pi.q.ff" :polling-period=500></node-set>
+                    <node-set name="kp" path="application.dsp1.loop_5.pi.q.kp" :polling-period=500></node-set>
+                    <node-set name="ki" path="application.dsp1.loop_5.pi.q.ki" :polling-period=500></node-set>
+                    <node-set name="ka" path="application.dsp1.loop_5.pi.q.ka" :polling-period=500></node-set>
+                    <node-set name="Clipping" path="application.dsp1.loop_5.pi.q.clipping" :polling-period=500></node-set>
+                    <node name="Reset" path="application.dsp1.loop_5.pi.q.reset" :polling-period=500></node>
+                  </tablev>
+                </div>
+              </accordion-container> 
+            </accordion-container>
+            
             
             
             <accordion-container title="GRAPH SETTINGS" id="graph_settings">
@@ -334,6 +689,7 @@
                 <button class="w3-button itech-button w3-border sidebarButtons" id="numberOfGraphsButton" onclick="setNumberOfGraphsPerRow()" >Set two graphs per row</button>
               </div>
             </accordion-container>
+            
             
             
             <accordion-container title="MORE OPTIONS" id="gui_settings">

@@ -646,19 +646,19 @@ Vue.component('graph-current', {
     return {
       selectSigOptions : [
         {
-          path : "application.signals.adc",
-          name : "ADC raw",
+          path : "application.signals.fmc0",
+          name : "fmc0",
           mode : "Event"
         },
         {
-          path : "application.signals.adc_synth",
-          name : "ADC synthetic",
+          path : "application.signals.fmc1",
+          name : "fmc1",
           mode : "Event"
         },  
       ],
       selectedSig : {
-        path : "application.signals.adc",
-        name : "ADC raw",
+        path : "application.signals.fmc0",
+        name : "fmc0",
         mode : "Event"
       }
     };
